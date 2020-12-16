@@ -58,9 +58,9 @@ public class bancoG3 {
 		{
 			tipoConta[i]=randomico.nextInt(5)+1;
 		}
-			
-		tipoConta[1] = 2;
 		
+		//SETANDO CONTA CORRENTE PARA TESTES
+		tipoConta[1]=2;	
 		
 		//NUMERO DA CONTA - TIPO DE CONTA
 		for(int i=0;i<40;i++) {
@@ -100,7 +100,7 @@ public class bancoG3 {
 		opcao = t.next().charAt(0);
 		linha(80);
 			
-			
+
 		
 			for(int i=0;i<40;i++) {
 				
@@ -403,6 +403,7 @@ public class bancoG3 {
 		System.out.println("Saldo: R$"+saldo);
 		
 		do {
+			
 			for(int i=0; i<10;i++) {
 				System.out.print("\nQUAL O VALOR DO MOVIMENTO? R$");
 				valor = t.nextDouble();
@@ -465,36 +466,92 @@ public class bancoG3 {
 		}while(opcao=='S');
 	}
 
-	static void contaEmpresa(int[] numConta, double saldo, double movimento[], char tipoMovimento[]) {
-		char opcao = 0;
-		double valor;
-		double limiteEmprestimo;
-		double limite []= new double [40];
-		
-		System.out.println("Número de Conta: "+numConta);
-		System.out.println("Saldo: R$"+saldo);
-		
-		do {
-				if(opcao == '4') {
-				  
-				int x = 0;
-				limiteEmprestimo = limite[x];
-				
-				System.out.println("O valor do seu emprestimo é: " + limiteEmprestimo);
-				
-		 		System.out.println("Entre com o valor do emprestimo: ");
-				valor = t.nextDouble();
-			if(valor >limiteEmprestimo || valor<0) {
-				System.out.println("Valor informado é maior que o saldo do emprestimo atual digite um número válido");
-			}else {
-				limiteEmprestimo = limiteEmprestimo-valor;
-				saldo = saldo + valor;
-				System.out.println("operação realizada com sucesso.\n SALDO ATUAL: "+saldo+ " seu limite emprestimo é: "+ limiteEmprestimo);
-				}
+		static void contaEmpresa(int[] numConta, double saldo, double movimento[], char tipoMovimento[]) {
+			char opcao = 0;
+			double valor;
+			double limiteEmprestimo;
+			double valorAtual = 0;
+			double limite []= new double [40];
+			
+			System.out.println("Número de Conta: "+numConta);
+			System.out.println("Saldo: R$"+saldo);
+			
+			for (int x=0; x<40; x++)
+			{
+				limite[x]=randomico.nextInt(1000);
 			}
 			
-		}while(opcao=='S');
-	}
+			Object dia;
+			do
+		    {
+		    	
+		    	////////////////////////////////
+		    	for(int i=0 ; i<10 ; i++)
+		    	{
+		    		System.out.println("\nServiços Disponiveis:");
+		    		System.out.println("[1]- SAQUE");
+		    		System.out.println("[2]- DEPOSITO");
+		    		System.out.println("[3]- EMPRESTIMO?");
+		    		System.out.print("Digite a Opção Desejada: ");
+		    		opcao = t.next().charAt(0);
+		    		if(opcao == '1') {
+		    			System.out.println("Entre com o valor do saque: ");
+		    			valor = t .nextDouble();
+						if(saldo>=valor) {
+							saldo = saldo-valor;
+							movimento[i] = valor * (-1);
+							tipoMovimento[i] = opcao;
+							
+									System.out.println("operação realizada com sucesso\n SALDO ATUAL: "+saldo);
+												
+						} else {
+							System.out.println("Saldo insuficiente para saque.\n SALDO ATUAL: "+saldo);
+						}
+		    			
+		    		}
+		    		else if(opcao == '2') {
+		    			System.out.println("Entre com o valor do depósito: ");
+		    			valor = t.nextDouble();
+					if(valor<0) {
+		    			System.out.println("Digite um número válido");
+					}
+					else {
+						saldo = saldo+valor;
+						movimento[i] = valor;
+						tipoMovimento[i] = opcao;
+						System.out.println("operação realizada com sucesso.\n SALDO ATUAL: "+saldo);
+						
+						}
+		    		}
+		    			if(opcao == '3') {
+		    			int x = 0;
+						limiteEmprestimo = limite[x];
+						
+						System.out.println("O valor do seu emprestimo é: " + limiteEmprestimo);
+		    			
+		    	 		System.out.println("Entre com o valor do emprestimo: ");
+		    			valor = t.nextDouble();
+					if(valor >limiteEmprestimo || valor<0) {
+		    			System.out.println("Valor informado é maior que o saldo do emprestimo atual digite um número válido");
+					}else {
+						limiteEmprestimo = limiteEmprestimo-valor;
+						valorAtual = limiteEmprestimo;
+						saldo = saldo + valor;
+						System.out.println("operação realizada com sucesso.\n SALDO ATUAL: "+saldo+ " seu limite emprestimo é: "+ valorAtual);
+						
+					if(limiteEmprestimo > valorAtual) {
+							System.out.println("Valor menor que o valor do Limite atual");
+						}
+					}
+		    	}
+		    		
+		    		
+		  	}
+		    	System.out.println("\nDeseja continuar? \n[S]-Sim \n[N]-Não");
+				opcao = t.next().toUpperCase().charAt(0);
+				
+			}while(opcao=='S');
+		}
 		
 		
 	}
