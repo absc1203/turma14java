@@ -12,6 +12,7 @@ public class BancoTeste {
 		double valorLimite = 5000;
 		double emprestimo = 5000;
 		double emprestimoUniversitario = 5000;
+		final int QTDMOVIMENTO = 2;
 		// escopo global
 
 		System.out.println("BANCO DE TESTE!!");
@@ -37,7 +38,7 @@ public class BancoTeste {
 					int dataAniversario = t.nextInt();
 					ContaPoupanca poupanca = new ContaPoupanca(numeroConta, cpfConta, dataAniversario);
 
-					for (int i = 0; i < 10; i++) {
+					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
 						char opcao = t.next().toUpperCase().charAt(0);
@@ -46,15 +47,8 @@ public class BancoTeste {
 
 							System.out.println("INSIRA O VALOR DO DÉBITO");
 							double valor = t.nextDouble();
-
-							if (poupanca.getSaldo() >= valor) {
-								System.out.println("Debito feito com sucesso");
-								poupanca.debito(valor);
-								System.out.println("Saldo Atual: " + poupanca.getSaldo());
-							} else {
-								System.out.println("Saldo insuficiente para saque");
-								System.out.println("Saldo Atual: " + poupanca.getSaldo());
-							}
+							poupanca.debito(valor);
+							System.out.println("Saldo Atual: " + poupanca.getSaldo());
 
 						} else if (opcao == 'C') {
 							System.out.println("INSIRA O VALOR DO CRÉDITO");
@@ -68,6 +62,9 @@ public class BancoTeste {
 						}
 
 					}
+					System.out.println("DIGITE O DIA DE HOJE!");
+					int dia = t.nextInt();
+					poupanca.comparacaoData(dia);
 
 				}
 					break;
@@ -75,7 +72,7 @@ public class BancoTeste {
 				case '2': {
 					ContaCorrente corrente = new ContaCorrente(numeroConta, cpfConta);
 					
-					for (int i = 0; i < 10; i++) {
+					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
 						char opcao = t.next().toUpperCase().charAt(0);
@@ -84,15 +81,9 @@ public class BancoTeste {
 
 							System.out.println("INSIRA O VALOR DO DÉBITO");
 							double valor = t.nextDouble();
-
-							if (corrente.getSaldo() >= valor) {
-								System.out.println("Debito feito com sucesso");
-								corrente.debito(valor);
-								System.out.println("Saldo Atual: " + corrente.getSaldo());
-							} else {
-								System.out.println("Saldo insuficiente para saque");
-								System.out.println("Saldo Atual: " + corrente.getSaldo());
-							}
+							corrente.debito(valor);
+							System.out.println("Saldo Atual: " + corrente.getSaldo());
+							
 
 						} else if (opcao == 'C') {
 							System.out.println("INSIRA O VALOR DO CRÉDITO");
@@ -115,7 +106,7 @@ public class BancoTeste {
 				case '3': {
 					ContaEspecial especial = new ContaEspecial(numeroConta, cpfConta, valorLimite);
 					
-					for (int i = 0; i < 10; i++) {
+					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
 						char opcao = t.next().toUpperCase().charAt(0);
@@ -124,15 +115,9 @@ public class BancoTeste {
 
 							System.out.println("INSIRA O VALOR DO DÉBITO");
 							double valor = t.nextDouble();
-
-							if (especial.getSaldo() >= valor) {
-								System.out.println("Debito feito com sucesso");
-								especial.debito(valor);
-								System.out.println("Saldo Atual: " + especial.getSaldo());
-							} else {
-								System.out.println("Saldo insuficiente para saque");
-								System.out.println("Saldo Atual: " + especial.getSaldo());
-							}
+							especial.debito(valor);
+							System.out.println("Saldo Atual: " + especial.getSaldo());
+							
 
 						} else if (opcao == 'C') {
 							System.out.println("INSIRA O VALOR DO CRÉDITO");
@@ -150,9 +135,9 @@ public class BancoTeste {
 					break;
 
 				case '4': {
-					ContaEmpresa empresa = new ContaEmpresa(numeroConta, cpfConta, emprestimo);
+					ContaEmpresa empresa = new ContaEmpresa(numeroConta, emprestimo);
 					
-					for (int i = 0; i < 10; i++) {
+					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
 						char opcao = t.next().toUpperCase().charAt(0);
@@ -161,15 +146,8 @@ public class BancoTeste {
 
 							System.out.println("INSIRA O VALOR DO DÉBITO");
 							double valor = t.nextDouble();
-
-							if (empresa.getSaldo() >= valor) {
-								System.out.println("Debito feito com sucesso");
-								empresa.debito(valor);
-								System.out.println("Saldo Atual: " + empresa.getSaldo());
-							} else {
-								System.out.println("Saldo insuficiente para saque");
-								System.out.println("Saldo Atual: " + empresa.getSaldo());
-							}
+							empresa.debito(valor);
+							System.out.println("Saldo Atual: " + empresa.getSaldo());
 
 						} else if (opcao == 'C') {
 							System.out.println("INSIRA O VALOR DO CRÉDITO");
@@ -184,7 +162,9 @@ public class BancoTeste {
 						
 					}
 					
-					empresa.perguntarEmprestimo();
+					System.out.println("DESEJA FAZER UM EMPRESTIMO?");
+					double valorEmprestimo = t.nextDouble();				
+					empresa.emprestar(valorEmprestimo);
 					
 				}
 					break;
@@ -193,7 +173,7 @@ public class BancoTeste {
 					ContaUniversitaria universitaria = new ContaUniversitaria(numeroConta, cpfConta, valorLimite,
 							emprestimoUniversitario);
 					
-					for (int i = 0; i < 10; i++) {
+					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
 						char opcao = t.next().toUpperCase().charAt(0);
@@ -202,15 +182,8 @@ public class BancoTeste {
 
 							System.out.println("INSIRA O VALOR DO DÉBITO");
 							double valor = t.nextDouble();
-
-							if (universitaria.getSaldo() >= valor) {
-								System.out.println("Debito feito com sucesso");
-								universitaria.debito(valor);
-								System.out.println("Saldo Atual: " + universitaria.getSaldo());
-							} else {
-								System.out.println("Saldo insuficiente para saque");
-								System.out.println("Saldo Atual: " + universitaria.getSaldo());
-							}
+							universitaria.debito(valor);
+							System.out.println("Saldo Atual: " + universitaria.getSaldo());
 
 						} else if (opcao == 'C') {
 							System.out.println("INSIRA O VALOR DO CRÉDITO");
@@ -237,6 +210,7 @@ public class BancoTeste {
 			System.out.println("Continua S/N");
 			saida = t.next().toUpperCase().charAt(0);
 			if (saida == 'N') {
+				System.out.println("PROGRAMA FINALIZADO..");
 				break;
 			}
 

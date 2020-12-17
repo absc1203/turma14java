@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import poo.Produto;
-
 public class CadLoja {
 
 	public static void main(String[] args) {
 
 		Scanner t = new Scanner(System.in);
-		char opcao;
+		char opcao ='S';
 		int quantidade = 0;
 		int escolhido = 0;
 		double preco = 0;
 		String codProduto;
+		double total = 0;
 
 		do {
 			// Cabeçalho
@@ -51,14 +50,20 @@ public class CadLoja {
 				String nome = t.nextLine().toUpperCase();
 				System.out.print("\nGENERO DO CLIENTE [M]-MASCULINO [F]-FEMININO: ");
 				char genero = t.next().toUpperCase().charAt(0);
-				Pessoa cliente = new Pessoa(nome, genero);
-
+				
 				while (genero != 'M' && genero != 'F') {
 					System.out.println("Digite uma opção válida");
 					System.out.println("[M]-MASCULINO [F]-FEMININO");
 					genero = t.next().toUpperCase().charAt(0);
 				}
-
+				
+				System.out.println("DIGITE O SEU ANO DE NASCIMENTO");
+				int anoNascimento = t.nextInt();
+				System.out.println("DIGITE O SEU CPF");
+				String cpf = t.next();
+				
+				Cliente cliente = new Cliente(nome, genero, anoNascimento, cpf);
+				
 				if (cliente.getGenero() == 'M') {
 					System.out.println("\nSEJA BEM VINDO SR " + cliente.getNome() + "!!");
 				} else if (cliente.getGenero() == 'F') {
@@ -74,7 +79,10 @@ public class CadLoja {
 					System.out.println(produto.getCodigo() + "\t  " + produto.getQuantidadeEstoque() + "\t\t "
 							+ produto.getPreco() + "\t\t" + produto.getNome());
 				}
-
+				
+				
+				int i=1;
+				while(i>10 || opcao == 'S') {
 				t.nextLine();
 				System.out.println("Digite o codigo do produto para comprar: ");
 				codProduto = t.nextLine().toUpperCase();
@@ -82,15 +90,37 @@ public class CadLoja {
 				quantidade = t.nextInt();
 				
 				for (Produtos produto : produtos) {
-					if (produtos.get(produto.getQuantidadeEstoque()).equals(codProduto)) {
-						produtos.get((int) produto.comprarProduto(codProduto, quantidade));
+					if(codProduto.equals(produto.getCodigo())) {
+						total = total +  produto.comprarProduto(quantidade);
+						
+					}
+				  }
+				
+				
+					System.out.println("DESEJA CONTINUAR COMPRANDO S/N");
+					opcao = t.next().toUpperCase().charAt(0);
+					while(opcao != 'S' && opcao != 'N') {
+						System.out.println("OPÇÃO INVÁLIDA");
+						System.out.println("DESEJA CONTINUAR COMPRANDO S/N");
+						opcao = t.next().toUpperCase().charAt(0);
+					}
+				}
+				// Cabeçalho
+				linha(80);
+				System.out.println("***********************************");
+				System.out.println("            NOTA FISCAL            ");
+				System.out.println("***********************************");
+				linha(80);
+				for (Produtos produto : produtos) {
+					if(produto.getQuantidadeEstoque() != 10) {
+					System.out.println(produto.getCodigo() + "\t  " + quantidade + "\t\t "
+							+ produto.getPreco() + "\t\t" + produto.getNome());
 					}
 				}
 				
-				for (Produtos produto : produtos) {
-					System.out.println(produto.getCodigo() + "\t  " + produto.getQuantidadeEstoque() + "\t\t "
-							+ produto.getPreco() + "\t\t" + produto.getNome());
-				}
+				
+				System.out.println("\nO TOTAL A SER PAGO É: R$" + total);
+				
 			}
 
 			else if (tipo == '2') {
@@ -114,11 +144,22 @@ public class CadLoja {
 				System.out.println("[S]-SIM [N]-NÃO");
 				opcao = t.next().toUpperCase().charAt(0);
 			}
+			// cabeçalho menu de produtos
+			linha(60);
+			System.out.print("COD\tESTOQUE\t\tPREÇO\t\tNOME\n");
+			linha(60);
 
+			for (Produtos produto : produtos) {
+				System.out.println(produto.getCodigo() + "\t  " + produto.getQuantidadeEstoque() + "\t\t "
+						+ produto.getPreco() + "\t\t" + produto.getNome());
+			}
 		} while (opcao == 'S');
 
 		System.out.println("PROGRAMA FINALIZADO!!");
+		
 
+		
+		//NOTA FISCAL
 	}
 
 	public static void linha(int tamanho) {

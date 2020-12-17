@@ -1,12 +1,12 @@
 package loja;
 
 public class Produtos {
-	
+
 	private String codigo;
 	private String nome;
 	private double preco;
 	private int quantidadeEstoque;
-	
+
 	public Produtos(String codigo, String nome, double preco, int quantidadeEstoque) {
 		super();
 		this.codigo = codigo;
@@ -15,6 +15,17 @@ public class Produtos {
 		this.quantidadeEstoque = quantidadeEstoque;
 	}
 
+	public Produtos(String codigo, int quatidadeEstoque, double preco) {
+		super();
+		this.codigo = codigo;
+		this.quantidadeEstoque = quantidadeEstoque;
+		this.preco = preco;
+	}
+	
+	public Produtos(String codigo) {
+		super();
+		this.codigo = codigo;
+	}
 	public String getCodigo() {
 		return codigo;
 	}
@@ -22,7 +33,7 @@ public class Produtos {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -43,15 +54,23 @@ public class Produtos {
 		return quantidadeEstoque;
 	}
 
-	public void setQuantidadeEstoque(int quantidadeEstoque) {
-		this.quantidadeEstoque = quantidadeEstoque;
+	public double comprarProduto(int quantidade) {
+		if (quantidade < this.quantidadeEstoque) {
+			tiraEstoque(quantidade);
+			return this.preco * quantidade;
+		} else {
+			System.out.println("NÃO TEMOS ESSA QUANTIDADE EM ESTOQUE. QTD ATUAL" + this.quantidadeEstoque);
+			return 0;
+		}
+
 	}
-	
-	public double comprarProduto(String codigo, int quantidade) {
+
+	private void tiraEstoque(int quantidade) {
 		quantidadeEstoque -= quantidade;
-		return this.preco * quantidade;
 	}
-	
-	
+
+	private void adicionaEstoque(int quantidade) {
+		quantidadeEstoque += quantidade;
+	}
 
 }
