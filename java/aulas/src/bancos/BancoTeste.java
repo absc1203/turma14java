@@ -3,62 +3,244 @@ package bancos;
 import java.util.Scanner;
 
 public class BancoTeste {
-
 	public static void main(String[] args) {
-		Scanner leia = new Scanner(System.in);
-		System.out.println("BANCO TESTE PARA USO");
-		int conta;
-		char op;
-		double valor = 0.00;
-		
-		//variaveis do talao
-		int talao = 3;
-		int totalTalao = 0;
-		//------------------
-		
-		System.out.println("Digite o numero da conta: ");
-		conta = leia.nextInt();
-		ContaCorrente contaCorrente = new ContaCorrente();
-		
+		Scanner t = new Scanner(System.in);
+
+		char op;// visivel em todo o programa - escopo
+		char saida;
+		int numeroConta = 0;
+		double valorLimite = 5000;
+		double emprestimo = 5000;
+		double emprestimoUniversitario = 5000;
+		// escopo global
+
+		System.out.println("BANCO DE TESTE!!");
 		do {
-			System.out.println("Saldo atual da conta é " + contaCorrente.saldo);
-			System.out.println("Desejar movimentar? S/N");
-			op = leia.next().toUpperCase().charAt(0);
-			for (int i = 0; i < 10; i++) {
-				while (op == 'S') {
-					System.out.println("Movimento a credito ou debito? [C/D]:");
-					op = leia.next().toUpperCase().charAt(0);
-					while (op != 'D' && op != 'C') {
-						System.out.println("Digite uma opção válida!\n[C]-Crédito [D]-Débito");
-						op = leia.next().toUpperCase().charAt(0);
+			System.out.println("1 - Abertura de conta: ");
+			System.out.println("2 - Acesso a uma conta existente: ");
+			System.out.println("3 - Sair: ");
+			op = t.next().charAt(0);
+			if (op == '1') {
+				System.out.println("1 - Conta Poupança");
+				System.out.println("2 - Conta Corrente");
+				System.out.println("3 - Conta Especial");
+				System.out.println("4 - Conta Empresa");
+				System.out.println("5 - conta Universitaria");
+				System.out.print("Digite o numero de sua opção: ");
+				char opconta = t.next().charAt(0);
+				numeroConta++;
+				System.out.println("Digite o seu CPF:");
+				String cpfConta = t.next();
+				switch (opconta) {
+				case '1': {
+					System.out.println("Digite a data de aniversario da conta: ");
+					int dataAniversario = t.nextInt();
+					ContaPoupanca poupanca = new ContaPoupanca(numeroConta, cpfConta, dataAniversario);
+
+					for (int i = 0; i < 10; i++) {
+						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
+						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
+						char opcao = t.next().toUpperCase().charAt(0);
+
+						if (opcao == 'D') {
+
+							System.out.println("INSIRA O VALOR DO DÉBITO");
+							double valor = t.nextDouble();
+
+							if (poupanca.getSaldo() >= valor) {
+								System.out.println("Debito feito com sucesso");
+								poupanca.debito(valor);
+								System.out.println("Saldo Atual: " + poupanca.getSaldo());
+							} else {
+								System.out.println("Saldo insuficiente para saque");
+								System.out.println("Saldo Atual: " + poupanca.getSaldo());
+							}
+
+						} else if (opcao == 'C') {
+							System.out.println("INSIRA O VALOR DO CRÉDITO");
+							double valor = t.nextDouble();
+							poupanca.credito(valor);
+
+							System.out.println("Saldo Atual: " + poupanca.getSaldo());
+						} else {
+							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
+
+						}
+
 					}
-					System.out.println("Digite o valor: ");
-					valor = leia.nextDouble();
-					if (op == 'D') {
-						contaCorrente.debito(valor);
-					} else if (op == 'C') {
-						contaCorrente.credito(valor);
+
+				}
+					break;
+
+				case '2': {
+					ContaCorrente corrente = new ContaCorrente(numeroConta, cpfConta);
+					
+					for (int i = 0; i < 10; i++) {
+						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
+						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
+						char opcao = t.next().toUpperCase().charAt(0);
+
+						if (opcao == 'D') {
+
+							System.out.println("INSIRA O VALOR DO DÉBITO");
+							double valor = t.nextDouble();
+
+							if (corrente.getSaldo() >= valor) {
+								System.out.println("Debito feito com sucesso");
+								corrente.debito(valor);
+								System.out.println("Saldo Atual: " + corrente.getSaldo());
+							} else {
+								System.out.println("Saldo insuficiente para saque");
+								System.out.println("Saldo Atual: " + corrente.getSaldo());
+							}
+
+						} else if (opcao == 'C') {
+							System.out.println("INSIRA O VALOR DO CRÉDITO");
+							double valor = t.nextDouble();
+							corrente.credito(valor);
+
+							System.out.println("Saldo Atual: " + corrente.getSaldo());
+						} else {
+							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
+
+						}
+						
 					}
-					System.out.printf("Saldo atual: %.2f\n", contaCorrente.saldo);
-					System.out.println("Continua S/N:");
-					op = leia.next().toUpperCase().charAt(0);
-					while (op != 'S' && op != 'N') {
-						System.out.println("Digite uma opção válida!\n[S]-Sim [N]-Não");
-						op = leia.next().toUpperCase().charAt(0);
+					
+					corrente.talao(numeroConta);
+					
+				}
+					break;
+
+				case '3': {
+					ContaEspecial especial = new ContaEspecial(numeroConta, cpfConta, valorLimite);
+					
+					for (int i = 0; i < 10; i++) {
+						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
+						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
+						char opcao = t.next().toUpperCase().charAt(0);
+
+						if (opcao == 'D') {
+
+							System.out.println("INSIRA O VALOR DO DÉBITO");
+							double valor = t.nextDouble();
+
+							if (especial.getSaldo() >= valor) {
+								System.out.println("Debito feito com sucesso");
+								especial.debito(valor);
+								System.out.println("Saldo Atual: " + especial.getSaldo());
+							} else {
+								System.out.println("Saldo insuficiente para saque");
+								System.out.println("Saldo Atual: " + especial.getSaldo());
+							}
+
+						} else if (opcao == 'C') {
+							System.out.println("INSIRA O VALOR DO CRÉDITO");
+							double valor = t.nextDouble();
+							especial.credito(valor);
+
+							System.out.println("Saldo Atual: " + especial.getSaldo());
+						} else {
+							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
+
+						}
+						
 					}
 				}
+					break;
+
+				case '4': {
+					ContaEmpresa empresa = new ContaEmpresa(numeroConta, cpfConta, emprestimo);
+					
+					for (int i = 0; i < 10; i++) {
+						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
+						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
+						char opcao = t.next().toUpperCase().charAt(0);
+
+						if (opcao == 'D') {
+
+							System.out.println("INSIRA O VALOR DO DÉBITO");
+							double valor = t.nextDouble();
+
+							if (empresa.getSaldo() >= valor) {
+								System.out.println("Debito feito com sucesso");
+								empresa.debito(valor);
+								System.out.println("Saldo Atual: " + empresa.getSaldo());
+							} else {
+								System.out.println("Saldo insuficiente para saque");
+								System.out.println("Saldo Atual: " + empresa.getSaldo());
+							}
+
+						} else if (opcao == 'C') {
+							System.out.println("INSIRA O VALOR DO CRÉDITO");
+							double valor = t.nextDouble();
+							empresa.credito(valor);
+
+							System.out.println("Saldo Atual: " + empresa.getSaldo());
+						} else {
+							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
+
+						}
+						
+					}
+					
+					empresa.perguntarEmprestimo();
+					
+				}
+					break;
+
+				case '5': {
+					ContaUniversitaria universitaria = new ContaUniversitaria(numeroConta, cpfConta, valorLimite,
+							emprestimoUniversitario);
+					
+					for (int i = 0; i < 10; i++) {
+						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
+						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
+						char opcao = t.next().toUpperCase().charAt(0);
+
+						if (opcao == 'D') {
+
+							System.out.println("INSIRA O VALOR DO DÉBITO");
+							double valor = t.nextDouble();
+
+							if (universitaria.getSaldo() >= valor) {
+								System.out.println("Debito feito com sucesso");
+								universitaria.debito(valor);
+								System.out.println("Saldo Atual: " + universitaria.getSaldo());
+							} else {
+								System.out.println("Saldo insuficiente para saque");
+								System.out.println("Saldo Atual: " + universitaria.getSaldo());
+							}
+
+						} else if (opcao == 'C') {
+							System.out.println("INSIRA O VALOR DO CRÉDITO");
+							double valor = t.nextDouble();
+							universitaria.credito(valor);
+
+							System.out.println("Saldo Atual: " + universitaria.getSaldo());
+						} else {
+							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
+
+						}
+						
+					}
+					
+				}
+					break;
+				}
+
+			} else if (op == '2') {
+				System.out.println("wip");
+			} else {
 
 			}
-			contaCorrente.talao(talao, totalTalao);
+			System.out.println("Continua S/N");
+			saida = t.next().toUpperCase().charAt(0);
+			if (saida == 'N') {
+				break;
+			}
 
-		} while (op == 'S');
+		} while (true);
 
-		System.out.println("Fim do programa. Tks!!!");
-		
-		ContaCorrente c1 = new ContaCorrente(1);
-		
-		
-		c1.talao(c1.numeroConta);
 	}
-
 }
