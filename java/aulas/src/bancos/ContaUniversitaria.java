@@ -30,10 +30,10 @@ public class ContaUniversitaria extends ContaCorrente{
 	{
 		if (valorEmprestimo <= this . emprestimoUniversidade)
 		{
-			this . emprestimoUniversidade = this. emprestimoUniversidade - valorEmprestimo;
-			this . saldo = this. saldo + valorEmprestimo;
-			System.out.println( " Limite disponivel para emprestimo é: " + this . emprestimoUniversidade);
-			System.out.println( " O SEU SALDO ATUAL: " + this. saldo);
+			this.emprestimoUniversidade = this.emprestimoUniversidade - valorEmprestimo;
+			this.saldo = this.saldo + valorEmprestimo;
+			System.out.println( " Limite disponivel para emprestimo é: " + this .emprestimoUniversidade);
+			System.out.println( " O SEU SALDO ATUAL: " + this.saldo);
 		}
 		else
 		{

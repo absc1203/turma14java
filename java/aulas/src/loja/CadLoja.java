@@ -17,6 +17,7 @@ public class CadLoja {
 		double total = 0;
 		char continua = 'S';
 		char op;
+		final int ESTOQUE = 10;
 		
 		List<Produtos> produtos = new ArrayList<>();
 		produtos.add(new Produtos("OD01", "CAMISA", 35.00, 10));
@@ -136,6 +137,9 @@ public class CadLoja {
 				System.out.println("\nO TOTAL A SER PAGO É: R$" + total);
 				
 			}
+			
+			
+			//formas de pagamento
 
 			else if (tipo == '2') {
 
@@ -144,7 +148,7 @@ public class CadLoja {
 					System.out.println("[2] - REMOVER PRODUTO");
 					System.out.println("[3] - ATUALIZAR PRODUTO");
 					System.out.println("[4] - LISTA DE PRODUTOS");
-					System.out.print("DIGITE A OPÇÃO:");
+					System.out.println("[5] - MENU");
 					op = t.next().charAt(0);
 
 					while (op != '1' && op != '2' && op != '3' && op != '4') {
@@ -154,38 +158,45 @@ public class CadLoja {
 					}
 
 					if (op == '1') {
-						linha(80);
-						System.out.println("   LISTA DE PRODUTOS EXISTENTES    ");
-						linha(80);
-						System.out.println(" NOME\t\t  PREÇO\n");
-						for(Produtos prod: produtos) {
-							System.out.println(prod.getNome() + "\t  " + prod.getPreco());
+						linha(60);
+						System.out.print("COD\tESTOQUE\t\tPREÇO\t\tNOME\n");
+						linha(60);
+						for (Produtos produto : produtos) {
+							System.out.println(produto.getCodigo() + "\t  " + produto.getQuantidadeEstoque() + "\t\t "
+									+ produto.getPreco() + "\t\t" + produto.getNome());
 						}
 						
+						t.nextLine();
+						System.out.println("DIGITE O CÓDIGO DO PRODUTO ADICIONADO (DIFERENTE DE UM EXISTENTE)");
+						String codigo = t.nextLine();
 						System.out.println("DIGITE O NOME DO PRODUTO QUE DESEJA ADICIONAR");
-						String nome = t.next();
+						String nome = t.nextLine();
 						System.out.println("DIGITE O PREÇO DO PRODUTO");
 						preco = t.nextDouble();
-						Produtos produto = new Produtos(nome, preco);
-
+						Produtos produto = new Produtos(codigo, nome, preco, ESTOQUE);
 						produtos.add(produto);
+						
+						
 
 					} else if (op == '2') {
-						linha(80);
-						System.out.println("    LISTA DE PRODUTOS EXISTENTES    ");
-						linha(80);
-						System.out.println(" NOME\t\t  PREÇO\n");
-						for(Produtos prod: produtos) {
-							System.out.println(prod.getNome() + "\t  " + prod.getPreco());
+						linha(60);
+						System.out.print("COD\tESTOQUE\t\tPREÇO\t\tNOME\n");
+						linha(60);
+						for (Produtos produto : produtos) {
+							System.out.println(produto.getCodigo() + "\t  " + produto.getQuantidadeEstoque() + "\t\t "
+									+ produto.getPreco() + "\t\t" + produto.getNome());
 						}
-						System.out.println("DIGITE O NOME DO PRODUTO QUE DESEJA REMOVER");
-						String nome = t.next();
+						t.nextLine();
+						System.out.println("DIGITE O CODIGO DO PRODUTO PARA REMOVER");
+						String codigo = t.nextLine();
 
-						for (Produtos prod : produtos) {
-							if (prod.getNome().equals(nome)) {
-								produtos.remove(prod);
+						
+						for (Produtos produto : produtos) {
+							if (produto.getCodigo().equals(codigo)) {
+								produtos.indexOf(codigo);
 							}
 						}
+						
 
 					} else if (op == '3') {
 						linha(80);
@@ -218,8 +229,7 @@ public class CadLoja {
 							System.out.println(prod.getNome() + "\t  " + prod.getPreco());
 						}
 
-					}
-					
+					}					
 					System.out.println("\n\nDESEJA FAZER OUTRA AÇÃO? S/N");
 					continua = t.next().toUpperCase().charAt(0);
 					while(continua != 'S' && continua != 'N') {
@@ -232,6 +242,7 @@ public class CadLoja {
 				}while (continua == 'S');
 				
 			}
+			
 
 			else if (tipo == '3') {
 
@@ -242,7 +253,7 @@ public class CadLoja {
 				System.out.println("Digite uma opção válida");
 			}
 
-			System.out.print("Deseja continuar comprando??\n\n[S]-Sim [N]-Não\n");
+			System.out.print("Deseja continuar no programa??\n\n[S]-Sim [N]-Não\n");
 			opcao = t.next().toUpperCase().charAt(0);
 			while (opcao != 'S' && opcao != 'N') {
 				System.out.println("Digite uma opção válida");
