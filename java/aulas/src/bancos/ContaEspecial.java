@@ -1,6 +1,7 @@
 package bancos;
 
 public class ContaEspecial extends ContaCorrente {
+	
 	private double valorLimite;
 	private double valorCadastroLimite;
 
@@ -17,7 +18,8 @@ public class ContaEspecial extends ContaCorrente {
 	public void setValorLimite(double valorLimite) {
 		this.valorLimite = valorLimite;
 	}
-
+	
+	@Override
 	public boolean testarSaldo(double valor) {
 
 		boolean teste;

@@ -40,7 +40,7 @@ public abstract class Conta {
 	}
 
 	public void debito(double valorDebito) {
-		if (testaSaldo(valorDebito) && valorDebito > 0) {
+		if (testarSaldo(valorDebito) && valorDebito > 0) {
 			this.saldo -= valorDebito;
 		} else {
 			System.out.println("Valor maior que o saldo ou negativo!");
@@ -55,15 +55,20 @@ public abstract class Conta {
 		}
 	}
 	
-	public boolean testaSaldo(double valorDebito) {
-		if(this.saldo > valorDebito ) {
-			return true;
-		}
-		else {
-			return false;
+	public boolean testarSaldo(double valor) 
+	{
+		
+		boolean teste;
+		if (valor <= this.saldo) {
+			teste = true;
+		} else {
+			teste = false;
 		}
 		
+		return teste;
 	}
+		
+	
 	
 
 	

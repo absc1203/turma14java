@@ -1,5 +1,5 @@
 package bancos;
-import java.util.Scanner;
+
 public class ContaEmpresa extends Conta {
 
 	private double emprestimoEmpresa;

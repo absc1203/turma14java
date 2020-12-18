@@ -71,7 +71,7 @@ public class BancoTeste {
 
 				case '2': {
 					ContaCorrente corrente = new ContaCorrente(numeroConta, cpfConta);
-					
+
 					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
@@ -83,7 +83,6 @@ public class BancoTeste {
 							double valor = t.nextDouble();
 							corrente.debito(valor);
 							System.out.println("Saldo Atual: " + corrente.getSaldo());
-							
 
 						} else if (opcao == 'C') {
 							System.out.println("INSIRA O VALOR DO CRÉDITO");
@@ -95,17 +94,17 @@ public class BancoTeste {
 							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
 
 						}
-						
+
 					}
-					
+
 					corrente.talao(numeroConta);
-					
+
 				}
 					break;
 
 				case '3': {
 					ContaEspecial especial = new ContaEspecial(numeroConta, valorLimite, 5000);
-					
+
 					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
@@ -116,8 +115,9 @@ public class BancoTeste {
 							System.out.println("INSIRA O VALOR DO DÉBITO");
 							double valor = t.nextDouble();
 							especial.debito(valor);
-							System.out.println("Saldo Atual: " + especial.getSaldo());
 							
+
+							System.out.println("Saldo Atual: " + especial.getSaldo());
 
 						} else if (opcao == 'C') {
 							System.out.println("INSIRA O VALOR DO CRÉDITO");
@@ -129,16 +129,15 @@ public class BancoTeste {
 							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
 
 						}
-						
+
 					}
-					
-				
+
 				}
 					break;
 
 				case '4': {
 					ContaEmpresa empresa = new ContaEmpresa(numeroConta, emprestimo);
-					
+
 					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
@@ -148,7 +147,16 @@ public class BancoTeste {
 
 							System.out.println("INSIRA O VALOR DO DÉBITO");
 							double valor = t.nextDouble();
-							empresa.debito(valor);
+							if(valor > empresa.getSaldo()) {
+								System.out.println("DÉBITO MAIOR QUE SEU SALDO");
+								System.out.println("NECESSARIO FAZER UM EMPRESTIMO");
+								System.out.println("QUAL O VALOR??");
+								double valorEmprestimo = t.nextDouble();
+								empresa.emprestar(valorEmprestimo);
+								empresa.debito(valor);
+							}
+							
+							
 							System.out.println("Saldo Atual: " + empresa.getSaldo());
 
 						} else if (opcao == 'C') {
@@ -161,20 +169,20 @@ public class BancoTeste {
 							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
 
 						}
-						
+
 					}
-					
+
 					System.out.println("DESEJA FAZER UM EMPRESTIMO?");
-					double valorEmprestimo = t.nextDouble();				
+					double valorEmprestimo = t.nextDouble();
 					empresa.emprestar(valorEmprestimo);
-					
+
 				}
 					break;
 
 				case '5': {
 					ContaUniversitaria universitaria = new ContaUniversitaria(numeroConta, cpfConta, valorLimite,
 							emprestimoUniversitario);
-					
+
 					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
 						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
@@ -184,6 +192,11 @@ public class BancoTeste {
 
 							System.out.println("INSIRA O VALOR DO DÉBITO");
 							double valor = t.nextDouble();
+							if(valor > universitaria.getSaldo()) {
+								System.out.println("DESEJA FAZER UM EMPRESTIMO?");
+								double valorEmprestimo = t.nextDouble();
+								universitaria.emprestar(valorEmprestimo);
+							}
 							universitaria.debito(valor);
 							System.out.println("Saldo Atual: " + universitaria.getSaldo());
 
@@ -197,13 +210,13 @@ public class BancoTeste {
 							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
 
 						}
-						
+
 					}
-					
+
 					System.out.println("Deseja fazer um impréstimo?");
 					double valorEmprestimo = t.nextDouble();
 					universitaria.emprestar(valorEmprestimo);
-					
+
 				}
 					break;
 				}
