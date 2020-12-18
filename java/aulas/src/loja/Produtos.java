@@ -26,6 +26,14 @@ public class Produtos {
 		super();
 		this.codigo = codigo;
 	}
+	
+	public Produtos(String codigo, double preco) {
+		super();
+		this.codigo = codigo;
+		this.preco = preco;
+	}
+	
+	
 	public String getCodigo() {
 		return codigo;
 	}

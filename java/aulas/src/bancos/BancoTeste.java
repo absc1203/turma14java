@@ -104,7 +104,7 @@ public class BancoTeste {
 					break;
 
 				case '3': {
-					ContaEspecial especial = new ContaEspecial(numeroConta, cpfConta, valorLimite);
+					ContaEspecial especial = new ContaEspecial(numeroConta, valorLimite, 5000);
 					
 					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
@@ -131,6 +131,8 @@ public class BancoTeste {
 						}
 						
 					}
+					
+				
 				}
 					break;
 
@@ -197,6 +199,10 @@ public class BancoTeste {
 						}
 						
 					}
+					
+					System.out.println("Deseja fazer um impréstimo?");
+					double valorEmprestimo = t.nextDouble();
+					universitaria.emprestar(valorEmprestimo);
 					
 				}
 					break;
