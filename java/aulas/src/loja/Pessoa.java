@@ -1,6 +1,7 @@
 package loja;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public abstract class Pessoa {
 	
@@ -48,7 +49,10 @@ public abstract class Pessoa {
 	
 	
 	public int voltaIdade() {
-		return Calendar.YEAR - anoNascimento;
+		Calendar ano = GregorianCalendar.getInstance();
+		int anoAtual=ano.get(Calendar.YEAR);
+
+		return (anoAtual - this.anoNascimento);
 	}
 		
 

@@ -15,6 +15,18 @@ public class CadLoja {
 		double preco = 0;
 		String codProduto;
 		double total = 0;
+		
+		List<Produtos> produtos = new ArrayList<>();
+		produtos.add(new Produtos("OD01", "CAMISA", 35.00, 10));
+		produtos.add(new Produtos("OD02", "CAMISETA", 55.00, 10));
+		produtos.add(new Produtos("OD03", "REGATA", 22.00, 10));
+		produtos.add(new Produtos("OD04", "B.MOLETOM", 120.00, 10));
+		produtos.add(new Produtos("OD05", "BONÉ", 50.00, 10));
+		produtos.add(new Produtos("OD06", "TOUCA", 30.00, 10));
+		produtos.add(new Produtos("OD07", "SHORTS", 40.00, 10));
+		produtos.add(new Produtos("OD08", "C.VENTO", 100.00, 10));
+		produtos.add(new Produtos("OD09", "CALÇA", 80.00, 10));
+		produtos.add(new Produtos("OD10", "LUVA", 10.00, 10));
 
 		do {
 			// Cabeçalho
@@ -31,17 +43,7 @@ public class CadLoja {
 			System.out.print("DIGITE A OPÇÃO:");
 			char tipo = t.next().charAt(0);
 
-			List<Produtos> produtos = new ArrayList<>();
-			produtos.add(new Produtos("OD01", "CAMISA", 35.00, 10));
-			produtos.add(new Produtos("OD02", "CAMISETA", 55.00, 10));
-			produtos.add(new Produtos("OD03", "REGATA", 22.00, 10));
-			produtos.add(new Produtos("OD04", "B.MOLETOM", 120.00, 10));
-			produtos.add(new Produtos("OD05", "BONÉ", 50.00, 10));
-			produtos.add(new Produtos("OD06", "TOUCA", 30.00, 10));
-			produtos.add(new Produtos("OD07", "SHORTS", 40.00, 10));
-			produtos.add(new Produtos("OD08", "C.VENTO", 100.00, 10));
-			produtos.add(new Produtos("OD09", "CALÇA", 80.00, 10));
-			produtos.add(new Produtos("OD10", "LUVA", 10.00, 10));
+			//estava aqui kkkkkk
 
 			if (tipo == '1') {
 
@@ -69,12 +71,21 @@ public class CadLoja {
 				} else if (cliente.getGenero() == 'F') {
 					System.out.println("\nSEJA BEM VINDA SRA " + cliente.getNome() + "!!");
 				}
-
-				// cabeçalho menu de produtos
+				
+				if(cliente.voltaIdade() > 18) {
+				System.out.println("\n\n             VESTUÁRIO ADULTO            ");
+				// cabeçalho menu de produtos adultos
 				linha(60);
 				System.out.print("COD\tESTOQUE\t\tPREÇO\t\tNOME\n");
 				linha(60);
-
+				}else{
+				System.out.println("\n\n             VESTUÁRIO INFANTIL            ");
+				// cabeçalho menu de produtos infantíl 
+				linha(60);
+				System.out.print("COD\tESTOQUE\t\tPREÇO\t\tNOME\n");
+				linha(60);
+				}
+				
 				for (Produtos produto : produtos) {
 					System.out.println(produto.getCodigo() + "\t  " + produto.getQuantidadeEstoque() + "\t\t "
 							+ produto.getPreco() + "\t\t" + produto.getNome());
@@ -111,6 +122,7 @@ public class CadLoja {
 				System.out.println("            NOTA FISCAL            ");
 				System.out.println("***********************************");
 				linha(80);
+				
 				for (Produtos produto : produtos) {
 					if(produto.getQuantidadeEstoque() != 10) {
 					System.out.println(produto.getCodigo() + "\t  " + quantidade + "\t\t "
@@ -158,8 +170,6 @@ public class CadLoja {
 		System.out.println("PROGRAMA FINALIZADO!!");
 		
 
-		
-		//NOTA FISCAL
 	}
 
 	public static void linha(int tamanho) {

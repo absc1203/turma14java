@@ -55,7 +55,7 @@ public class Produtos {
 	}
 
 	public double comprarProduto(int quantidade) {
-		if (quantidade < this.quantidadeEstoque) {
+		if (quantidade <= this.quantidadeEstoque) {
 			tiraEstoque(quantidade);
 			return this.preco * quantidade;
 		} else {
