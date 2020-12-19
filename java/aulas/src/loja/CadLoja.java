@@ -18,6 +18,7 @@ public class CadLoja {
 		char continua = 'S';
 		char op;
 		final int ESTOQUE = 10;
+		double imposto;
 		
 		List<Produtos> produtos = new ArrayList<>();
 		produtos.add(new Produtos("OD01", "CAMISA", 35.00, 10));
@@ -135,6 +136,82 @@ public class CadLoja {
 				
 				
 				System.out.println("\nO TOTAL A SER PAGO É: R$" + total);
+				System.out.println("QUAL A FORMA DE PAGAMENTO");
+				System.out.println("[1] - A VISTA (DINHEIRO) - DESCONTO 10%");
+				System.out.println("[2] - DEBITO - MANTEM O VALOR");
+				System.out.println("[3] - CREDITO - 5% ACRESCIMO");
+				System.out.println("[4] - CREDITO - PARCELADO - 10% ACRESCIMO");
+				char pagamento = t.next().charAt(0);
+				
+				while(pagamento != '1' && pagamento != '2' &&pagamento != '3' && pagamento != '4') {
+					System.out.println("DIGITE A OPÇÃO DA LISTA");
+					System.out.println("QUAL A FORMA DE PAGAMENTO");
+					System.out.println("[1] - A VISTA (DINHEIRO) - DESCONTO 10%");
+					System.out.println("[2] - DEBITO - MANTEM O VALOR");
+					System.out.println("[3] - CREDITO - 5% ACRESCIMO" );
+					System.out.println("[4] - CREDITO - PARCELADO - 10% ACRESCIMO");
+					pagamento = t.next().charAt(0);
+				}
+				
+				if(pagamento == '1') {
+					total = total - (total * 0.10);
+					imposto = total*0.09;
+					
+					System.out.println("NOVO VALOR COM OS 10% DE DESCONTO R$" + total);
+					System.out.println("IMPOSTOS DA COMPRA (9%) R$" +imposto);
+					
+				}else if(pagamento == '2') {
+					imposto = total*0.09;
+					
+					System.out.println("VALOR A SER PAGO R$" + total);
+					System.out.println("IMPOSTOS DA COMPRA (9%) R$" +imposto);
+					
+				}else if(pagamento == '3') {
+					
+					total = total + (total * 0.05);
+					imposto = total*0.09;
+					
+					System.out.println("NOVO VALOR COM OS 5% DE ACRESCIMO R$" + total);
+					System.out.println("IMPOSTOS DA COMPRA (9%) R$" +imposto);
+					
+				}else if(pagamento == '4') {
+					
+					System.out.println("DESEJA PARCELAR EM QUANTAS VEZES (ATÉ 3X)");
+					char parcela = t.next().charAt(0);
+					
+					while(parcela != '1' && parcela != '2' && parcela != '3') {
+						System.out.println("DIGITE UMA PARCELA VÁLIDA");
+						System.out.println("DESEJA PARCELAR EM QUANTAS VEZES (ATÉ 3X)");
+						parcela = t.next().charAt(0);
+					}
+					
+					if(parcela == '1') {
+						total = total + (total * 0.05);
+						imposto = total*0.09;
+						
+						System.out.println("NOVO VALOR COM OS 5% DE ACRESCIMO R$" + total);
+						System.out.println("IMPOSTOS DA COMPRA (9%) R$" +imposto);
+						
+					}else if(parcela == '2') {
+						total = total + (total * 0.10);
+						imposto = total*0.09;
+						
+						System.out.println("NOVO VALOR COM OS 10% DE ACRESCIMO R$" + total);
+						System.out.println("DUAS PARCELAS DE R$" + total/2);
+						System.out.println("IMPOSTOS DA COMPRA (9%) R$" +imposto);
+					}else if(parcela == '3') {
+						total = total + (total * 0.10);
+						imposto = total*0.09;
+						
+						System.out.println("NOVO VALOR COM OS 10% DE ACRESCIMO R$" + total);
+						System.out.println("DUAS PARCELAS DE R$" + (total/3));
+						System.out.println("IMPOSTOS DA COMPRA (9%) R$" +imposto);
+					}
+					
+					
+				}
+				
+				
 				
 			}
 			
@@ -142,7 +219,6 @@ public class CadLoja {
 			//formas de pagamento
 
 			else if (tipo == '2') {
-
 				do {
 					System.out.println("[1] - ADICIONAR PRODUTO");
 					System.out.println("[2] - REMOVER PRODUTO");
@@ -193,26 +269,24 @@ public class CadLoja {
 						
 						for (Produtos produto : produtos) {
 							if (produto.getCodigo().equals(codigo)) {
-								produtos.indexOf(codigo);
+								produtos.remove(produto);
 							}
 						}
 						
 
 					} else if (op == '3') {
-						linha(80);
-						System.out.println("   LISTA DE PRODUTOS EXISTENTES    ");
-						linha(80);
-						System.out.println(" NOME\t\t  PREÇO\n");
-						for(Produtos prod: produtos) {
-							System.out.println(prod.getNome() + "\t  " + prod.getPreco());
+						linha(60);
+						System.out.print("COD\tESTOQUE\t\tPREÇO\t\tNOME\n");
+						linha(60);
+						for (Produtos produto : produtos) {
+							System.out.println(produto.getCodigo() + "\t  " + produto.getQuantidadeEstoque() + "\t\t "
+									+ produto.getPreco() + "\t\t" + produto.getNome());
 						}
 						
 						System.out.println("DIGITE O NOME DO PRODUTO QUE DESEJA ATUALIZAR");
 						String nome = t.next();
 						System.out.println("DIGITE O NOVO NOME DO PRODUTO");
 						String nomeNovo = t.next();
-						
-						Produtos produto = new Produtos(nome);
 
 						for (Produtos prod : produtos) {
 							if (prod.getNome().equals(nome)) {
@@ -221,12 +295,12 @@ public class CadLoja {
 						}
 
 					} else if (op =='4'){
-						linha(80);
-						System.out.println("   LISTA DE PRODUTOS EXISTENTES    ");
-						linha(80);
-						System.out.println(" NOME\t\t  PREÇO\n");
-						for(Produtos prod: produtos) {
-							System.out.println(prod.getNome() + "\t  " + prod.getPreco());
+						linha(60);
+						System.out.print("COD\tESTOQUE\t\tPREÇO\t\tNOME\n");
+						linha(60);
+						for (Produtos produto : produtos) {
+							System.out.println(produto.getCodigo() + "\t  " + produto.getQuantidadeEstoque() + "\t\t "
+									+ produto.getPreco() + "\t\t" + produto.getNome());
 						}
 
 					}					
