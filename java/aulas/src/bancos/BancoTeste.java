@@ -267,11 +267,11 @@ public class BancoTeste {
 					break;
 				}
 
-			} else if (op == '2') {
-				System.out.println("wip");
-			} else {
-
+			} else if (op == '3') {
+				System.out.println("PROGRAMA FINALIZADO");
+				System.exit(0);
 			}
+			
 			System.out.println("Continua S/N");
 			saida = t.next().toUpperCase().charAt(0);
 			if (saida == 'N') {
