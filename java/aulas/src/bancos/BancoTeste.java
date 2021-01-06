@@ -15,8 +15,9 @@ public class BancoTeste {
 		int opcao;
 		char continuar;
 		// escopo global
-
-		System.out.println("BANCO G3");
+		linha(40);
+		System.out.println("============== BANCO G3 ================");
+		linha(40);
 
 		do {
 			System.out.println("1 - Abertura de conta: ");
@@ -25,8 +26,7 @@ public class BancoTeste {
 			op = t.next().charAt(0);
 
 			do {
-				if (op == '1')
-				{
+				if (op == '1') {
 					System.out.println("Digite o seu CPF:");
 					cpfConta = t.next();
 					System.out.println("ESCOLHA UM TIPO DE CONTA");
@@ -46,10 +46,18 @@ public class BancoTeste {
 
 				switch (tipoConta) {
 				case '1': {
+					linha(40);
+					System.out.println("============== BANCO G3 ================");
+					linha(40);
 					System.out.println("CONTA POUPANÇA");
+					linha(40);
+
 					System.out.println("Digite a data de aniversario da conta: ");
 					int dataAniversario = t.nextInt();
 					ContaPoupanca poupanca = new ContaPoupanca(numeroConta, cpfConta, dataAniversario);
+
+					System.out.println("CPF: " + poupanca.getCPF());
+					System.out.println("SALDO: R$" + poupanca.getSaldo());
 
 					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
@@ -83,8 +91,16 @@ public class BancoTeste {
 					break;
 
 				case '2': {
+					linha(40);
+					System.out.println("============== BANCO G3 ================");
+					linha(40);
 					System.out.println("CONTA CORRENTE");
+					linha(40);
 					ContaCorrente corrente = new ContaCorrente(numeroConta, cpfConta);
+
+					System.out.println("CPF: " + corrente.getCPF());
+					System.out.println("SALDO: R$" + corrente.getSaldo());
+					System.out.println("TALÕES DISPONÍVEIS: " + corrente.getTalao());
 
 					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
@@ -117,6 +133,12 @@ public class BancoTeste {
 					break;
 
 				case '3': {
+					linha(40);
+					System.out.println("============== BANCO G3 ================");
+					linha(40);
+					System.out.println("CONTA ESPECIAL");
+					linha(40);
+					
 					ContaEspecial especial = new ContaEspecial(3, 1000);
 					do {
 						for (int transacao = 0; transacao < 10; transacao++) {
@@ -139,13 +161,13 @@ public class BancoTeste {
 									especial.devolverLimite(t.nextDouble());
 									System.out.println("Saldo: R$ " + especial.getSaldo());
 									System.out.println("Valor do Limite: R$ " + especial.getValorLimite11());
-									
+
 								} else if (opcao == 2) {
 									System.out.println("Digite o valor a ser debitado");
 									especial.debito(t.nextDouble());
 									System.out.println("Saldo: R$ " + especial.getSaldo());
 									System.out.println("Valor do Limite: R$ " + especial.getValorLimite11());
-									
+
 								} else if (opcao == 0) {
 									return;
 								}
@@ -166,7 +188,16 @@ public class BancoTeste {
 					break;
 
 				case '4': {
+					linha(40);
+					System.out.println("============== BANCO G3 ================");
+					linha(40);
+					System.out.println("CONTA EMPRESA");
+					linha(40);
 					ContaEmpresa empresa = new ContaEmpresa(numeroConta, 5000);
+					
+					System.out.println("CPF: " + empresa.getCPF());
+					System.out.println("SALDO: R$" + empresa.getSaldo());
+					System.out.println("VALOR PARA EMPRESTIMO: " + empresa.getEmprestimoEmpresa());
 
 					for (int i = 0; i < QTDMOVIMENTO; i++) {
 						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
@@ -211,37 +242,27 @@ public class BancoTeste {
 					break;
 
 				case '5': {
-					
+
 					System.out.println("WIP");
 					/*
-					ContaUniversitaria universitaria = new ContaUniversitaria(numeroConta, cpfConta, 5000, 1000);
-					for (int i = 0; i < QTDMOVIMENTO; i++) {
-						System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
-						System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO ");
-						opcao = t.next().toUpperCase().charAt(0);
-						if (opcao == 'D') {
-							System.out.println("INSIRA O VALOR DO DÉBITO");
-							double valor = t.nextDouble();
-							if (valor > universitaria.getSaldo()) {
-								System.out.println("DESEJA FAZER UM EMPRESTIMO?");
-								double valorEmprestimo = t.nextDouble();
-								universitaria.emprestar(valorEmprestimo);
-							}
-							universitaria.debito(valor);
-							System.out.println("Saldo Atual: " + universitaria.getSaldo());
-						} else if (opcao == 'C') {
-							System.out.println("INSIRA O VALOR DO CRÉDITO");
-							double valor = t.nextDouble();
-							universitaria.credito(valor);
-							System.out.println("Saldo Atual: " + universitaria.getSaldo());
-						} else {
-							System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
-						}
-					}
-					System.out.println("Deseja fazer um impréstimo?");
-					double valorEmprestimo = t.nextDouble();
-					universitaria.emprestar(valorEmprestimo);
-					*/
+					 * ContaUniversitaria universitaria = new ContaUniversitaria(numeroConta,
+					 * cpfConta, 5000, 1000); for (int i = 0; i < QTDMOVIMENTO; i++) {
+					 * System.out.println("QUAL OPERAÇÃO DESEJA FAZER? R$");
+					 * System.out.println("[D]-DÉBITO \\ [C]-CRÉDITO "); opcao =
+					 * t.next().toUpperCase().charAt(0); if (opcao == 'D') {
+					 * System.out.println("INSIRA O VALOR DO DÉBITO"); double valor =
+					 * t.nextDouble(); if (valor > universitaria.getSaldo()) {
+					 * System.out.println("DESEJA FAZER UM EMPRESTIMO?"); double valorEmprestimo =
+					 * t.nextDouble(); universitaria.emprestar(valorEmprestimo); }
+					 * universitaria.debito(valor); System.out.println("Saldo Atual: " +
+					 * universitaria.getSaldo()); } else if (opcao == 'C') {
+					 * System.out.println("INSIRA O VALOR DO CRÉDITO"); double valor =
+					 * t.nextDouble(); universitaria.credito(valor);
+					 * System.out.println("Saldo Atual: " + universitaria.getSaldo()); } else {
+					 * System.out.println("Insira um comando válido!! [D]-DÉBITO \\\\ [C]-CRÉDITO");
+					 * } } System.out.println("Deseja fazer um impréstimo?"); double valorEmprestimo
+					 * = t.nextDouble(); universitaria.emprestar(valorEmprestimo);
+					 */
 				}
 					break;
 				}
@@ -259,11 +280,9 @@ public class BancoTeste {
 			}
 
 		} while (true);
-		
-		
 
 	}
-	
+
 	public static void linha(int tamanho) {
 		for (int i = 0; i < tamanho; i++) {
 			System.out.print("═");

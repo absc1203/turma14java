@@ -33,7 +33,10 @@ public class ContaCorrente extends Conta {
 	public void setTotalTalao(int totalTalao) {
 		this.totalTalao = totalTalao;
 	}
-
+	
+	public int getTalao() {
+		return talao;
+	}
 	
 
 	public void talao(int numConta) {
