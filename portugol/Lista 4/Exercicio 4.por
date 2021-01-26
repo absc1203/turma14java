@@ -25,9 +25,11 @@ programa
 		}
 
 		para(inteiro l = 0; l<3; l++){
-
-			diagonal = diagonal + mat[l][l] 
-			
+			para(inteiro c = 0; c<3; c++){
+				se (l == c){
+					diagonal = mat[l][c] + diagonal
+				}
+			}
 		}
 
 		escreva("A soma dos valores da matriz é: ",soma)
@@ -41,7 +43,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 520; 
+ * @POSICAO-CURSOR = 589; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = {mat, 6, 7, 3};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;

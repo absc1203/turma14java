@@ -277,6 +277,7 @@ public class BancoTeste {
 			if (saida == 'N') {
 				System.out.println("PROGRAMA FINALIZADO..");
 				break;
+				
 			}
 
 		} while (true);
